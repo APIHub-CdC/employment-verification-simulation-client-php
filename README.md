@@ -1,6 +1,6 @@
-# Employment Verification - PHP API Client
+# Sandbox Employment Verification - PHP API Simulation Client
 
-<p>API EVA<p> <p>Es una solución que verifica si un cliente cuenta con empleo formal arrojando un indicador de riesgo de pérdida de empleo con base al sector industrial en el que labora.</p><br/><img src='https://github.com/APIHub-CdC/imagenes-cdc/blob/master/circulo_de_credito-apihub.png' height='37' width='160'/><br/>
+<p>Sandbox API EVA<p> <p>Es una solución que verifica si un cliente cuenta con empleo formal arrojando un indicador de riesgo de pérdida de empleo con base al sector industrial en el que labora.</p><br/><img src='https://github.com/APIHub-CdC/imagenes-cdc/blob/master/circulo_de_credito-apihub.png' height='37' width='160'/><br/>
 
 ## Requisitos
 
@@ -110,7 +110,7 @@ public function testEmploymentverificationsWithPrivacyNotice(): void
 ...
 ```
 
-## 3 Pruebas unitarias
+## Pruebas unitarias
 
 Deshabilita la ejecución de un método test agregando la anotación **`@group skip`**
 
