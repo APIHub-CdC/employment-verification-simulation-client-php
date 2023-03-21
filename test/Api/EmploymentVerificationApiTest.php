@@ -1,85 +1,171 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client;
+namespace CirculoDeCredito\EmploymentVerification\Client;
 
-use \EmploymentVerificationSimulationClientPhp\Client\Configuration;
-use \EmploymentVerificationSimulationClientPhp\Client\ApiException;
-use \EmploymentVerificationSimulationClientPhp\Client\ObjectSerializer;
+use CirculoDeCredito\EmploymentVerification\Client\Api\ApiClient;
+use CirculoDeCredito\EmploymentVerification\Client\Model\Address;
+use CirculoDeCredito\EmploymentVerification\Client\Model\StateCatalog;
+use CirculoDeCredito\EmploymentVerification\Client\Model\FullName;
+use CirculoDeCredito\EmploymentVerification\Client\Model\PrivacyNotice;
+use CirculoDeCredito\EmploymentVerification\Client\Model\EmploymentVerification;
+use CirculoDeCredito\EmploymentVerification\Client\Model\EmploymentVerificationWithPrivacyNotice;
 
-use \EmploymentVerificationSimulationClientPhp\Client\Model\EmploymentVerification;
-use \EmploymentVerificationSimulationClientPhp\Client\Api\EmploymentVerificationApi;
+use CirculoDeCredito\EmploymentVerification\Client\Configuration;
+use CirculoDeCredito\EmploymentVerification\Client\ApiException;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
-class EmploymentVerificationApiTest extends \PHPUnit_Framework_TestCase
+use Signer\Manager\Interceptor\MiddlewareEvents;
+use Signer\Manager\Interceptor\KeyHandler;
+use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\HandlerStack;
+
+class EmploymentVerificationApiTest extends \PHPUnit\Framework\TestCase
 {
-    
-  
-    
-    public function setUp()
+    const YES   = "Y";
+    const NO    = "N";
+
+    private $username;
+    private $password;
+    private $apiKey;
+    private $httpClient;
+    private $config;
+
+    public function setUp(): void
     {
-        $config = new Configuration();
-        $config->setHost('https://circulodecredito-dev.apigee.net/sandbox');
-        $this->x_api_key = "GKD25Kfmc6VeoxGLAGtlrbYgZobDdB7S";
-        $client = new \GuzzleHttp\Client();
-        $this->apiInstance = new EmploymentVerificationApi($client,$config);
+        $this->username = "";
+        $this->password = "";
+        $this->apiKey   = "";
+
+	    $apiUrl = "";
+
+        $this->config = new Configuration();
+        $this->config->setHost($apiUrl);
+
+        $this->httpClient = new HttpClient();
+
     }
     
-      
-    public function testPostEmploymentVerification()
+    /**
+     * HTTP POST employment verification.
+     * 
+     * New employment verification request.
+     * 
+     * @group 
+     */
+    public function testEmploymentverificationsWithPrivacyNotice(): void
     {
-        try {
-            $request = new EmploymentVerification();
+        $address = new Address();
+        $address->setState(StateCatalog::CDMX);
+        $address->setPostalCode("");
+        $address->setCity("");
+        $address->setCounty("");
+        $address->setSettlement("");
+        $address->setStreetAndNumber("");
 
-            $request->setEmploymentVerificationRequestId($this->gen_uuid());
-            $request->setSubscriptionId("d002402e-f9e4-4f3d-8390-6558bf89c103");
-            $request->setCurp("PUPJ970229HDFZZG33");
-            $request->setNss(null);
-            $request->setEmail("api33@circulodecredito.com.mx");
+        $fullName = new FullName();
+        $fullName->setFirstName("");
+        $fullName->setMiddleName("");
+        $fullName->setFirstSurname("");
+        $fullName->setSecondSurname("");
+        $fullName->setAditionalSurname("");
 
-            $result = $this->apiInstance->postEmploymentVerification($this->x_api_key, $request);
-            print_r($result);
+        // Current date time with the format required by EVA API
+        // Note that this date time MUST correspond with the real acceptance date time from the client
+        $microTime = sprintf("%.2f", microtime(true));
+        $dateTime = date('Y-m-d\TH:i:s', $microTime).'.'.substr($microTime, -2).'Z';
+
+        $privacyNotice = new PrivacyNotice();
+        $privacyNotice->setFullName($fullName);
+        $privacyNotice->setAddress($address);
+        $privacyNotice->setAcceptanceDate($dateTime);
+        $privacyNotice->setAcceptance(Self::YES); // [Y,N]
+
+        $employment = new EmploymentVerification();
+        $employment->setCurp("");
+        $employment->setNss("");
+        $employment->setEmail("");
+        $employment->setEmploymentVerificationRequestId($this->uuid());
+        $employment->setSubscriptionId("");
+
+        $requestPayload = new EmploymentVerificationWithPrivacyNotice();
+        $requestPayload->setPrivacyNotice($privacyNotice);
+        $requestPayload->setEmploymentVerification($employment);
+
+        $reponse = null;
+
+        try  {
+            $api = new ApiClient($this->httpClient, $this->config);
+            $response = $api->employmentverificationsWithPrivacyNotice($this->apiKey, $this->username, $this->password, $requestPayload);
+            print("\n".$response);
             
-            if($result['inquiry_id']!=null){
-                //Get by inquiryId
-                 $this->getEmploymentVerification($result['inquiry_id']);
-
-            }
-        } catch (ApiException | Exception $e) {
-            echo 'Exception when calling EmploymentVerificationApiTest->testPostEmploymentVerification: ', $e->getMessage(), PHP_EOL;
+        }  catch  (ApiException $exception)  {
+            print("\nThe HTTP request failed, an error occurred: ".($exception->getMessage()));
+            print("\n".$exception->getResponseObject());
         }
-    }
     
-    public function getEmploymentVerification($inquiryId)
-    {
-        try {
-            $result = $this->apiInstance->getEmploymentVerification($this->x_api_key, $inquiryId);
-            print_r($result);
-            
-        } catch (ApiException | Exception $e) {
-            echo 'Exception when calling EmploymentVerificationApiTest->getEmploymentVerification: ', $e->getMessage(), PHP_EOL;
-        }
-    }
-    
-    public function testGetEmploymentVerifications()
-    {
-        try {
-            $page=1;
-            $per_page=5;
-            $result = $this->apiInstance->getEmploymentVerifications($this->x_api_key, $page,$per_page);
-            print_r($result);
-            
-    
-        } catch (ApiException | Exception $e) {
-            echo 'Exception when calling EmploymentVerificationApiTest->testGetEmploymentVerifications: ', $e->getMessage(), PHP_EOL;
-        }
+        $this->assertNotNull($response);
     }
 
-    private function gen_uuid() {
-        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-            mt_rand( 0, 0xffff ),
-            mt_rand( 0, 0x0fff ) | 0x4000,
-            mt_rand( 0, 0x3fff ) | 0x8000,
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
-        );
+    /**
+     * HTTP GET employment verification by inquiryId.
+     * 
+     * @group skip
+     */
+    public function testGetEmploymentVerificationByInquiryId(): void
+    {
+        $inquiryId = "";
+
+        $response = null;
+
+        try  {
+            $api = new ApiClient($this->httpClient, $this->config);
+            $response = $api->getEmploymentVerification($this->apiKey, $this->username, $this->password, $inquiryId);
+            print("\n".$response);
+            
+        }  catch  (ApiException $exception)  {
+            print("\nThe HTTP request failed, an error occurred: ".($exception->getMessage()));
+            print("\n".$exception->getResponseObject());
+        }
+    
+        $this->assertNotNull($response);
+    }
+
+    /**
+     * HTTP GET all employment verfications.
+     * 
+     * @group skip
+     */
+    public function testGetAllEmploymentVerfications(): void
+    {
+        $page = 1;
+        $perPage = 20;
+
+        $response = null;
+
+        try  {
+            $api = new ApiClient($this->httpClient, $this->config);
+            $response = $api->getEmploymentVerifications($this->apiKey, $this->username, $this->password, $page, $perPage);
+            print("\n".$response);
+            
+        }  catch  (ApiException $exception)  {
+            print("\nThe HTTP request failed, an error occurred: ".($exception->getMessage()));
+            print("\n".$exception->getResponseObject());
+        }
+    
+        $this->assertNotNull($response);
+    }
+
+    /**
+     * Generates UUID v4.
+     */
+    public function uuid():string {
+        $bytes = random_bytes(16);
+
+        $bytes[6] = chr(ord($bytes[6]) & 0x0f | 0x40);
+        $bytes[8] = chr(ord($bytes[8]) & 0x3f | 0x80);
+
+        $uuid = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($bytes), 4));
+
+        return $uuid;
     }
 }

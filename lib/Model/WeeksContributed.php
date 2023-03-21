@@ -5,18 +5,22 @@ namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 use \ArrayAccess;
 use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
-class Errors implements ModelInterface, ArrayAccess
+class WeeksContributed implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $RCCPMModelName = 'Errors';
+    protected static $RCCPMModelName = 'WeeksContributed';
     
     protected static $RCCPMTypes = [
-        'errors' => 'CirculoDeCredito\EmploymentVerification\Client\Model\Error[]'
+        'total_contributed_weeks' => 'int',
+        'discounted_weeks' => 'int',
+        'reinstated_weeks' => 'int'
     ];
     
     protected static $RCCPMFormats = [
-        'errors' => null
+        'total_contributed_weeks' => null,
+        'discounted_weeks' => null,
+        'reinstated_weeks' => null
     ];
     
     public static function RCCPMTypes()
@@ -30,15 +34,21 @@ class Errors implements ModelInterface, ArrayAccess
     }
     
     protected static $attributeMap = [
-        'errors' => 'errors'
+        'total_contributed_weeks' => 'totalContributedWeeks',
+        'discounted_weeks' => 'discountedWeeks',
+        'reinstated_weeks' => 'reinstatedWeeks'
     ];
     
     protected static $setters = [
-        'errors' => 'setErrors'
+        'total_contributed_weeks' => 'setTotalContributedWeeks',
+        'discounted_weeks' => 'setDiscountedWeeks',
+        'reinstated_weeks' => 'setReinstatedWeeks'
     ];
     
     protected static $getters = [
-        'errors' => 'getErrors'
+        'total_contributed_weeks' => 'getTotalContributedWeeks',
+        'discounted_weeks' => 'getDiscountedWeeks',
+        'reinstated_weeks' => 'getReinstatedWeeks'
     ];
     
     public static function attributeMap()
@@ -67,7 +77,9 @@ class Errors implements ModelInterface, ArrayAccess
     
     public function __construct(array $data = null)
     {
-        $this->container['errors'] = isset($data['errors']) ? $data['errors'] : null;
+        $this->container['total_contributed_weeks'] = isset($data['total_contributed_weeks']) ? $data['total_contributed_weeks'] : null;
+        $this->container['discounted_weeks'] = isset($data['discounted_weeks']) ? $data['discounted_weeks'] : null;
+        $this->container['reinstated_weeks'] = isset($data['reinstated_weeks']) ? $data['reinstated_weeks'] : null;
     }
     
     public function listInvalidProperties()
@@ -81,14 +93,36 @@ class Errors implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
     
-    public function getErrors()
+    public function getTotalContributedWeeks()
     {
-        return $this->container['errors'];
+        return $this->container['total_contributed_weeks'];
     }
     
-    public function setErrors($errors)
+    public function setTotalContributedWeeks($total_contributed_weeks)
     {
-        $this->container['errors'] = $errors;
+        $this->container['total_contributed_weeks'] = $total_contributed_weeks;
+        return $this;
+    }
+    
+    public function getDiscountedWeeks()
+    {
+        return $this->container['discounted_weeks'];
+    }
+    
+    public function setDiscountedWeeks($discounted_weeks)
+    {
+        $this->container['discounted_weeks'] = $discounted_weeks;
+        return $this;
+    }
+    
+    public function getReinstatedWeeks()
+    {
+        return $this->container['reinstated_weeks'];
+    }
+    
+    public function setReinstatedWeeks($reinstated_weeks)
+    {
+        $this->container['reinstated_weeks'] = $reinstated_weeks;
         return $this;
     }
     

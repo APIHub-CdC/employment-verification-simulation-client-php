@@ -1,25 +1,25 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Model;
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 
 use \ArrayAccess;
-use \EmploymentVerificationSimulationClientPhp\Client\ObjectSerializer;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
 class Metadata implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'Metadata';
+    protected static $RCCPMModelName = 'Metadata';
     
-    protected static $apihubTypes = [
+    protected static $RCCPMTypes = [
         'page' => 'int',
         'per_page' => 'int',
         'page_count' => 'int',
         'total_count' => 'int',
-        'links' => '\EmploymentVerificationSimulationClientPhp\Client\Model\Links'
+        'links' => 'CirculoDeCredito\EmploymentVerification\Client\Model\Links'
     ];
     
-    protected static $apihubFormats = [
+    protected static $RCCPMFormats = [
         'page' => null,
         'per_page' => null,
         'page_count' => null,
@@ -27,14 +27,14 @@ class Metadata implements ModelInterface, ArrayAccess
         'links' => null
     ];
     
-    public static function apihubTypes()
+    public static function RCCPMTypes()
     {
-        return self::$apihubTypes;
+        return self::$RCCPMTypes;
     }
     
-    public static function apihubFormats()
+    public static function RCCPMFormats()
     {
-        return self::$apihubFormats;
+        return self::$RCCPMFormats;
     }
     
     protected static $attributeMap = [
@@ -78,7 +78,7 @@ class Metadata implements ModelInterface, ArrayAccess
     
     public function getModelName()
     {
-        return self::$apihubModelName;
+        return self::$RCCPMModelName;
     }
     
     
@@ -160,16 +160,19 @@ class Metadata implements ModelInterface, ArrayAccess
         return $this;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -179,6 +182,7 @@ class Metadata implements ModelInterface, ArrayAccess
         }
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

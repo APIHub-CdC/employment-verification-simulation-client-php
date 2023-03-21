@@ -1,30 +1,30 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Model;
-use \EmploymentVerificationSimulationClientPhp\Client\ObjectSerializer;
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
-class AckFailureEVConsumption extends AckEmploymentVerification 
+class AckFailureEVConsumption extends EVAResponse 
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'AckFailureEVConsumption';
+    protected static $RCCPMModelName = 'AckFailureEVConsumption';
     
-    protected static $apihubTypes = [
-        'employment_verification' => '\EmploymentVerificationSimulationClientPhp\Client\Model\FailureEVConsumption'
+    protected static $RCCPMTypes = [
+        'employment_verification' => 'CirculoDeCredito\EmploymentVerification\Client\Model\FailureEVConsumption'
     ];
     
-    protected static $apihubFormats = [
+    protected static $RCCPMFormats = [
         'employment_verification' => null
     ];
     
-    public static function apihubTypes()
+    public static function RCCPMTypes()
     {
-        return self::$apihubTypes + parent::apihubTypes();
+        return self::$RCCPMTypes + parent::RCCPMTypes();
     }
     
-    public static function apihubFormats()
+    public static function RCCPMFormats()
     {
-        return self::$apihubFormats + parent::apihubFormats();
+        return self::$RCCPMFormats + parent::RCCPMFormats();
     }
     
     protected static $attributeMap = [
@@ -56,7 +56,7 @@ class AckFailureEVConsumption extends AckEmploymentVerification
     
     public function getModelName()
     {
-        return self::$apihubModelName;
+        return self::$RCCPMModelName;
     }
     
     
@@ -89,16 +89,19 @@ class AckFailureEVConsumption extends AckEmploymentVerification
         return $this;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -108,6 +111,7 @@ class AckFailureEVConsumption extends AckEmploymentVerification
         }
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

@@ -5,18 +5,22 @@ namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 use \ArrayAccess;
 use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
-class Errors implements ModelInterface, ArrayAccess
+class WorkStatusEvent implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $RCCPMModelName = 'Errors';
+    protected static $RCCPMModelName = 'WorkStatusEvent';
     
     protected static $RCCPMTypes = [
-        'errors' => 'CirculoDeCredito\EmploymentVerification\Client\Model\Error[]'
+        'change_type' => 'int',
+        'event_date' => '\DateTime',
+        'base_salary' => 'string'
     ];
     
     protected static $RCCPMFormats = [
-        'errors' => null
+        'change_type' => null,
+        'event_date' => 'date',
+        'base_salary' => null
     ];
     
     public static function RCCPMTypes()
@@ -30,15 +34,21 @@ class Errors implements ModelInterface, ArrayAccess
     }
     
     protected static $attributeMap = [
-        'errors' => 'errors'
+        'change_type' => 'changeType',
+        'event_date' => 'eventDate',
+        'base_salary' => 'baseSalary'
     ];
     
     protected static $setters = [
-        'errors' => 'setErrors'
+        'change_type' => 'setChangeType',
+        'event_date' => 'setEventDate',
+        'base_salary' => 'setBaseSalary'
     ];
     
     protected static $getters = [
-        'errors' => 'getErrors'
+        'change_type' => 'getChangeType',
+        'event_date' => 'getEventDate',
+        'base_salary' => 'getBaseSalary'
     ];
     
     public static function attributeMap()
@@ -67,7 +77,9 @@ class Errors implements ModelInterface, ArrayAccess
     
     public function __construct(array $data = null)
     {
-        $this->container['errors'] = isset($data['errors']) ? $data['errors'] : null;
+        $this->container['change_type'] = isset($data['change_type']) ? $data['change_type'] : null;
+        $this->container['event_date'] = isset($data['event_date']) ? $data['event_date'] : null;
+        $this->container['base_salary'] = isset($data['base_salary']) ? $data['base_salary'] : null;
     }
     
     public function listInvalidProperties()
@@ -81,14 +93,36 @@ class Errors implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
     
-    public function getErrors()
+    public function getChangeType()
     {
-        return $this->container['errors'];
+        return $this->container['change_type'];
     }
     
-    public function setErrors($errors)
+    public function setChangeType($change_type)
     {
-        $this->container['errors'] = $errors;
+        $this->container['change_type'] = $change_type;
+        return $this;
+    }
+    
+    public function getEventDate()
+    {
+        return $this->container['event_date'];
+    }
+    
+    public function setEventDate($event_date)
+    {
+        $this->container['event_date'] = $event_date;
+        return $this;
+    }
+    
+    public function getBaseSalary()
+    {
+        return $this->container['base_salary'];
+    }
+    
+    public function setBaseSalary($base_salary)
+    {
+        $this->container['base_salary'] = $base_salary;
         return $this;
     }
     

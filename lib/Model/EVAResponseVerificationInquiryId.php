@@ -1,59 +1,57 @@
 <?php
 
 namespace CirculoDeCredito\EmploymentVerification\Client\Model;
-
-use \ArrayAccess;
 use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
-class Errors implements ModelInterface, ArrayAccess
+class EVAResponseVerificationInquiryId extends EVAResponse 
 {
     const DISCRIMINATOR = null;
     
-    protected static $RCCPMModelName = 'Errors';
+    protected static $RCCPMModelName = 'EVAResponseVerificationInquiryId';
     
     protected static $RCCPMTypes = [
-        'errors' => 'CirculoDeCredito\EmploymentVerification\Client\Model\Error[]'
+        'employment_verification' => 'CirculoDeCredito\EmploymentVerification\Client\Model\SuccessEVConsumption'
     ];
     
     protected static $RCCPMFormats = [
-        'errors' => null
+        'employment_verification' => null
     ];
     
     public static function RCCPMTypes()
     {
-        return self::$RCCPMTypes;
+        return self::$RCCPMTypes + parent::RCCPMTypes();
     }
     
     public static function RCCPMFormats()
     {
-        return self::$RCCPMFormats;
+        return self::$RCCPMFormats + parent::RCCPMFormats();
     }
     
     protected static $attributeMap = [
-        'errors' => 'errors'
+        'employment_verification' => 'employmentVerification'
     ];
     
     protected static $setters = [
-        'errors' => 'setErrors'
+        'employment_verification' => 'setEmploymentVerification'
     ];
     
     protected static $getters = [
-        'errors' => 'getErrors'
+        'employment_verification' => 'getEmploymentVerification'
     ];
     
     public static function attributeMap()
     {
-        return self::$attributeMap;
+        return parent::attributeMap() + self::$attributeMap;
     }
     
     public static function setters()
     {
-        return self::$setters;
+        return parent::setters() + self::$setters;
     }
     
     public static function getters()
     {
-        return self::$getters;
+        return parent::getters() + self::$getters;
     }
     
     public function getModelName()
@@ -63,16 +61,15 @@ class Errors implements ModelInterface, ArrayAccess
     
     
     
-    protected $container = [];
-    
     public function __construct(array $data = null)
     {
-        $this->container['errors'] = isset($data['errors']) ? $data['errors'] : null;
+        parent::__construct($data);
+        $this->container['employment_verification'] = isset($data['employment_verification']) ? $data['employment_verification'] : null;
     }
     
     public function listInvalidProperties()
     {
-        $invalidProperties = [];
+        $invalidProperties = parent::listInvalidProperties();
         return $invalidProperties;
     }
     
@@ -81,14 +78,14 @@ class Errors implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
     
-    public function getErrors()
+    public function getEmploymentVerification()
     {
-        return $this->container['errors'];
+        return $this->container['employment_verification'];
     }
     
-    public function setErrors($errors)
+    public function setEmploymentVerification($employment_verification)
     {
-        $this->container['errors'] = $errors;
+        $this->container['employment_verification'] = $employment_verification;
         return $this;
     }
     

@@ -1,34 +1,34 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Model;
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 
 use \ArrayAccess;
-use \EmploymentVerificationSimulationClientPhp\Client\ObjectSerializer;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
 class FailureEVConsumption implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'FailureEVConsumption';
+    protected static $RCCPMModelName = 'FailureEVConsumption';
     
-    protected static $apihubTypes = [
-        'request' => '\EmploymentVerificationSimulationClientPhp\Client\Model\EmploymentVerification',
-        'errors' => '\EmploymentVerificationSimulationClientPhp\Client\Model\Error[]'
+    protected static $RCCPMTypes = [
+        'request' => 'CirculoDeCredito\EmploymentVerification\Client\Model\EmploymentVerification',
+        'errors' => 'CirculoDeCredito\EmploymentVerification\Client\Model\Error[]'
     ];
     
-    protected static $apihubFormats = [
+    protected static $RCCPMFormats = [
         'request' => null,
         'errors' => null
     ];
     
-    public static function apihubTypes()
+    public static function RCCPMTypes()
     {
-        return self::$apihubTypes;
+        return self::$RCCPMTypes;
     }
     
-    public static function apihubFormats()
+    public static function RCCPMFormats()
     {
-        return self::$apihubFormats;
+        return self::$RCCPMFormats;
     }
     
     protected static $attributeMap = [
@@ -63,7 +63,7 @@ class FailureEVConsumption implements ModelInterface, ArrayAccess
     
     public function getModelName()
     {
-        return self::$apihubModelName;
+        return self::$RCCPMModelName;
     }
     
     
@@ -109,16 +109,19 @@ class FailureEVConsumption implements ModelInterface, ArrayAccess
         return $this;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -128,6 +131,7 @@ class FailureEVConsumption implements ModelInterface, ArrayAccess
         }
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

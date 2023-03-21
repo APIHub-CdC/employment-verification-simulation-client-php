@@ -1,34 +1,34 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Model;
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 
 use \ArrayAccess;
-use \EmploymentVerificationSimulationClientPhp\Client\ObjectSerializer;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
 class Error implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'Error';
+    protected static $RCCPMModelName = 'Error';
     
-    protected static $apihubTypes = [
+    protected static $RCCPMTypes = [
         'code' => 'string',
         'message' => 'string'
     ];
     
-    protected static $apihubFormats = [
+    protected static $RCCPMFormats = [
         'code' => null,
         'message' => null
     ];
     
-    public static function apihubTypes()
+    public static function RCCPMTypes()
     {
-        return self::$apihubTypes;
+        return self::$RCCPMTypes;
     }
     
-    public static function apihubFormats()
+    public static function RCCPMFormats()
     {
-        return self::$apihubFormats;
+        return self::$RCCPMFormats;
     }
     
     protected static $attributeMap = [
@@ -63,7 +63,7 @@ class Error implements ModelInterface, ArrayAccess
     
     public function getModelName()
     {
-        return self::$apihubModelName;
+        return self::$RCCPMModelName;
     }
     
     
@@ -115,16 +115,19 @@ class Error implements ModelInterface, ArrayAccess
         return $this;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -134,6 +137,7 @@ class Error implements ModelInterface, ArrayAccess
         }
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

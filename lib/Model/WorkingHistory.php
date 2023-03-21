@@ -5,18 +5,22 @@ namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 use \ArrayAccess;
 use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
-class Errors implements ModelInterface, ArrayAccess
+class WorkingHistory implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $RCCPMModelName = 'Errors';
+    protected static $RCCPMModelName = 'WorkingHistory';
     
     protected static $RCCPMTypes = [
-        'errors' => 'CirculoDeCredito\EmploymentVerification\Client\Model\Error[]'
+        'date' => '\DateTime',
+        'weeks_contributed' => 'CirculoDeCredito\EmploymentVerification\Client\Model\WeeksContributed',
+        'working_history_detail' => 'CirculoDeCredito\EmploymentVerification\Client\Model\WorkingHistoryDetail[]'
     ];
     
     protected static $RCCPMFormats = [
-        'errors' => null
+        'date' => 'date',
+        'weeks_contributed' => null,
+        'working_history_detail' => null
     ];
     
     public static function RCCPMTypes()
@@ -30,15 +34,21 @@ class Errors implements ModelInterface, ArrayAccess
     }
     
     protected static $attributeMap = [
-        'errors' => 'errors'
+        'date' => 'date',
+        'weeks_contributed' => 'weeksContributed',
+        'working_history_detail' => 'workingHistoryDetail'
     ];
     
     protected static $setters = [
-        'errors' => 'setErrors'
+        'date' => 'setDate',
+        'weeks_contributed' => 'setWeeksContributed',
+        'working_history_detail' => 'setWorkingHistoryDetail'
     ];
     
     protected static $getters = [
-        'errors' => 'getErrors'
+        'date' => 'getDate',
+        'weeks_contributed' => 'getWeeksContributed',
+        'working_history_detail' => 'getWorkingHistoryDetail'
     ];
     
     public static function attributeMap()
@@ -67,7 +77,9 @@ class Errors implements ModelInterface, ArrayAccess
     
     public function __construct(array $data = null)
     {
-        $this->container['errors'] = isset($data['errors']) ? $data['errors'] : null;
+        $this->container['date'] = isset($data['date']) ? $data['date'] : null;
+        $this->container['weeks_contributed'] = isset($data['weeks_contributed']) ? $data['weeks_contributed'] : null;
+        $this->container['working_history_detail'] = isset($data['working_history_detail']) ? $data['working_history_detail'] : null;
     }
     
     public function listInvalidProperties()
@@ -81,14 +93,36 @@ class Errors implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
     
-    public function getErrors()
+    public function getDate()
     {
-        return $this->container['errors'];
+        return $this->container['date'];
     }
     
-    public function setErrors($errors)
+    public function setDate($date)
     {
-        $this->container['errors'] = $errors;
+        $this->container['date'] = $date;
+        return $this;
+    }
+    
+    public function getWeeksContributed()
+    {
+        return $this->container['weeks_contributed'];
+    }
+    
+    public function setWeeksContributed($weeks_contributed)
+    {
+        $this->container['weeks_contributed'] = $weeks_contributed;
+        return $this;
+    }
+    
+    public function getWorkingHistoryDetail()
+    {
+        return $this->container['working_history_detail'];
+    }
+    
+    public function setWorkingHistoryDetail($working_history_detail)
+    {
+        $this->container['working_history_detail'] = $working_history_detail;
         return $this;
     }
     

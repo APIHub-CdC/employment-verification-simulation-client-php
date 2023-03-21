@@ -1,6 +1,6 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Interceptor;
+namespace EmploymentVerificationClientPhp\Client\Interceptor;
 
 use \Monolog\Logger;
 use \Monolog\Formatter\LineFormatter;

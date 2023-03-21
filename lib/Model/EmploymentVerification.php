@@ -1,62 +1,62 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Model;
-use \EmploymentVerificationSimulationClientPhp\Client\ObjectSerializer;
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
 class EmploymentVerification extends EmploymentVerificationId 
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'EmploymentVerification';
+    protected static $RCCPMModelName = 'EmploymentVerification';
     
-    protected static $apihubTypes = [
+    protected static $RCCPMTypes = [
         'curp' => 'string',
         'nss' => 'string',
         'email' => 'string',
-        'inquiry_status' => 'string',
-        'success_check' => 'bool'
+        'subscription_id' => 'string',
+        'employment_verification_request_id' => 'string'
     ];
     
-    protected static $apihubFormats = [
+    protected static $RCCPMFormats = [
         'curp' => null,
         'nss' => null,
         'email' => 'email',
-        'inquiry_status' => null,
-        'success_check' => null
+        'subscription_id' => null,
+        'employment_verification_request_id' => null
     ];
     
-    public static function apihubTypes()
+    public static function RCCPMTypes()
     {
-        return self::$apihubTypes + parent::apihubTypes();
+        return self::$RCCPMTypes + parent::RCCPMTypes();
     }
     
-    public static function apihubFormats()
+    public static function RCCPMFormats()
     {
-        return self::$apihubFormats + parent::apihubFormats();
+        return self::$RCCPMFormats + parent::RCCPMFormats();
     }
     
     protected static $attributeMap = [
         'curp' => 'curp',
         'nss' => 'nss',
         'email' => 'email',
-        'inquiry_status' => 'inquiryStatus',
-        'success_check' => 'successCheck'
+        'subscription_id' => 'subscriptionId',
+        'employment_verification_request_id' => 'employmentVerificationRequestId'
     ];
     
     protected static $setters = [
         'curp' => 'setCurp',
         'nss' => 'setNss',
         'email' => 'setEmail',
-        'inquiry_status' => 'setInquiryStatus',
-        'success_check' => 'setSuccessCheck'
+        'subscription_id' => 'setSubscriptionId',
+        'employment_verification_request_id' => 'setEmploymentVerificationRequestId'
     ];
     
     protected static $getters = [
         'curp' => 'getCurp',
         'nss' => 'getNss',
         'email' => 'getEmail',
-        'inquiry_status' => 'getInquiryStatus',
-        'success_check' => 'getSuccessCheck'
+        'subscription_id' => 'getSubscriptionId',
+        'employment_verification_request_id' => 'getEmploymentVerificationRequestId'
     ];
     
     public static function attributeMap()
@@ -76,27 +76,8 @@ class EmploymentVerification extends EmploymentVerificationId
     
     public function getModelName()
     {
-        return self::$apihubModelName;
+        return self::$RCCPMModelName;
     }
-    const INQUIRY_STATUS_RI = 'RI';
-    const INQUIRY_STATUS_SN = 'SN';
-    const INQUIRY_STATUS_DN = 'DN';
-    const INQUIRY_STATUS_DND = 'DND';
-    const INQUIRY_STATUS_CI = 'CI';
-    
-    
-    
-    public function getInquiryStatusAllowableValues()
-    {
-        return [
-            self::INQUIRY_STATUS_RI,
-            self::INQUIRY_STATUS_SN,
-            self::INQUIRY_STATUS_DN,
-            self::INQUIRY_STATUS_DND,
-            self::INQUIRY_STATUS_CI,
-        ];
-    }
-    
     
     public function __construct(array $data = null)
     {
@@ -104,17 +85,20 @@ class EmploymentVerification extends EmploymentVerificationId
         $this->container['curp'] = isset($data['curp']) ? $data['curp'] : null;
         $this->container['nss'] = isset($data['nss']) ? $data['nss'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
-        $this->container['inquiry_status'] = isset($data['inquiry_status']) ? $data['inquiry_status'] : null;
-        $this->container['success_check'] = isset($data['success_check']) ? $data['success_check'] : null;
+        $this->container['subscription_id'] = isset($data['subscription_id']) ? $data['subscription_id'] : null;
+        $this->container['employment_verification_request_id'] = isset($data['employment_verification_request_id']) ? $data['employment_verification_request_id'] : null;
     }
     
     public function listInvalidProperties()
     {
         $invalidProperties = parent::listInvalidProperties();
-        if (!is_null($this->container['curp']) && (mb_strlen($this->container['curp']) > 18)) {
+        if ($this->container['curp'] === null) {
+            $invalidProperties[] = "'curp' can't be null";
+        }
+        if ((mb_strlen($this->container['curp']) > 18)) {
             $invalidProperties[] = "invalid value for 'curp', the character length must be smaller than or equal to 18.";
         }
-        if (!is_null($this->container['curp']) && (mb_strlen($this->container['curp']) < 18)) {
+        if ((mb_strlen($this->container['curp']) < 18)) {
             $invalidProperties[] = "invalid value for 'curp', the character length must be bigger than or equal to 18.";
         }
         if (!is_null($this->container['nss']) && (mb_strlen($this->container['nss']) > 11)) {
@@ -123,19 +107,16 @@ class EmploymentVerification extends EmploymentVerificationId
         if (!is_null($this->container['nss']) && (mb_strlen($this->container['nss']) < 11)) {
             $invalidProperties[] = "invalid value for 'nss', the character length must be bigger than or equal to 11.";
         }
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 80)) {
+        if ($this->container['email'] === null) {
+            $invalidProperties[] = "'email' can't be null";
+        }
+        if ((mb_strlen($this->container['email']) > 80)) {
             $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 80.";
         }
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 3)) {
+        if ((mb_strlen($this->container['email']) < 3)) {
             $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 3.";
         }
-        $allowedValues = $this->getInquiryStatusAllowableValues();
-        if (!is_null($this->container['inquiry_status']) && !in_array($this->container['inquiry_status'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'inquiry_status', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
+
         return $invalidProperties;
     }
     
@@ -151,10 +132,10 @@ class EmploymentVerification extends EmploymentVerificationId
     
     public function setCurp($curp)
     {
-        if (!is_null($curp) && (mb_strlen($curp) > 18)) {
+        if ((mb_strlen($curp) > 18)) {
             throw new \InvalidArgumentException('invalid length for $curp when calling EmploymentVerification., must be smaller than or equal to 18.');
         }
-        if (!is_null($curp) && (mb_strlen($curp) < 18)) {
+        if ((mb_strlen($curp) < 18)) {
             throw new \InvalidArgumentException('invalid length for $curp when calling EmploymentVerification., must be bigger than or equal to 18.');
         }
         $this->container['curp'] = $curp;
@@ -185,57 +166,59 @@ class EmploymentVerification extends EmploymentVerificationId
     
     public function setEmail($email)
     {
-        if (!is_null($email) && (mb_strlen($email) > 80)) {
+        if ((mb_strlen($email) > 80)) {
             throw new \InvalidArgumentException('invalid length for $email when calling EmploymentVerification., must be smaller than or equal to 80.');
         }
-        if (!is_null($email) && (mb_strlen($email) < 3)) {
+        if ((mb_strlen($email) < 3)) {
             throw new \InvalidArgumentException('invalid length for $email when calling EmploymentVerification., must be bigger than or equal to 3.');
         }
         $this->container['email'] = $email;
         return $this;
     }
-    
-    public function getInquiryStatus()
+
+    public function getSubscriptionId()
     {
-        return $this->container['inquiry_status'];
+        return $this->container['subscription_id'];
     }
     
-    public function setInquiryStatus($inquiry_status)
-    {
-        $allowedValues = $this->getInquiryStatusAllowableValues();
-        if (!is_null($inquiry_status) && !in_array($inquiry_status, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'inquiry_status', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
+    public function setSubscriptionId($subscriptionId) {
+        
+        if ($subscriptionId === null || !is_string($subscriptionId)) {
+            throw new \InvalidArgumentException('Invalid subscriptionId must be a string and not null');
         }
-        $this->container['inquiry_status'] = $inquiry_status;
+
+        $this->container['subscription_id'] = $subscriptionId;
+        return $this;
+    }
+
+    public function getEmploymentVerificationRequestId()
+    {
+        return $this->container['employment_verification_request_id'];
+    }
+    
+    public function setEmploymentVerificationRequestId($requestId)
+    {
+        if ($requestId === null || !is_string($requestId)) {
+            throw new \InvalidArgumentException('Invalid requestId must be a string and not null');
+        }
+
+        $this->container['employment_verification_request_id'] = $requestId;
         return $this;
     }
     
-    public function getSuccessCheck()
-    {
-        return $this->container['success_check'];
-    }
-    
-    public function setSuccessCheck($success_check)
-    {
-        $this->container['success_check'] = $success_check;
-        return $this;
-    }
-    
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -245,6 +228,7 @@ class EmploymentVerification extends EmploymentVerificationId
         }
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

@@ -1,46 +1,44 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Model;
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 
 use \ArrayAccess;
-use \EmploymentVerificationSimulationClientPhp\Client\ObjectSerializer;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
 class SuccessEVConsumption implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'SuccessEVConsumption';
+    protected static $RCCPMModelName = 'SuccessEVConsumption';
     
-    protected static $apihubTypes = [
-        'request' => '\EmploymentVerificationSimulationClientPhp\Client\Model\EmploymentVerification',
+    protected static $RCCPMTypes = [
+        'request' => 'CirculoDeCredito\EmploymentVerification\Client\Model\EmploymentVerification',
         'names' => 'string',
         'birthday' => '\DateTime',
         'work_status' => 'string',
         'valid_until' => '\DateTime',
-        'industry' => '\EmploymentVerificationSimulationClientPhp\Client\Model\CatalogIndustry',
-        'industry_risk_segment' => 'string',
-        'nss_check' => 'bool'
+        'nss_check' => 'bool',
+        'working_history' => 'CirculoDeCredito\EmploymentVerification\Client\Model\WorkingHistory'
     ];
     
-    protected static $apihubFormats = [
+    protected static $RCCPMFormats = [
         'request' => null,
         'names' => null,
         'birthday' => 'date',
         'work_status' => null,
         'valid_until' => 'date',
-        'industry' => null,
-        'industry_risk_segment' => null,
-        'nss_check' => null
+        'nss_check' => null,
+        'working_history' => null
     ];
     
-    public static function apihubTypes()
+    public static function RCCPMTypes()
     {
-        return self::$apihubTypes;
+        return self::$RCCPMTypes;
     }
     
-    public static function apihubFormats()
+    public static function RCCPMFormats()
     {
-        return self::$apihubFormats;
+        return self::$RCCPMFormats;
     }
     
     protected static $attributeMap = [
@@ -49,9 +47,8 @@ class SuccessEVConsumption implements ModelInterface, ArrayAccess
         'birthday' => 'birthday',
         'work_status' => 'workStatus',
         'valid_until' => 'validUntil',
-        'industry' => 'industry',
-        'industry_risk_segment' => 'industryRiskSegment',
-        'nss_check' => 'nssCheck'
+        'nss_check' => 'nssCheck',
+        'working_history' => 'workingHistory'
     ];
     
     protected static $setters = [
@@ -60,9 +57,8 @@ class SuccessEVConsumption implements ModelInterface, ArrayAccess
         'birthday' => 'setBirthday',
         'work_status' => 'setWorkStatus',
         'valid_until' => 'setValidUntil',
-        'industry' => 'setIndustry',
-        'industry_risk_segment' => 'setIndustryRiskSegment',
-        'nss_check' => 'setNssCheck'
+        'nss_check' => 'setNssCheck',
+        'working_history' => 'setWorkingHistory'
     ];
     
     protected static $getters = [
@@ -71,9 +67,8 @@ class SuccessEVConsumption implements ModelInterface, ArrayAccess
         'birthday' => 'getBirthday',
         'work_status' => 'getWorkStatus',
         'valid_until' => 'getValidUntil',
-        'industry' => 'getIndustry',
-        'industry_risk_segment' => 'getIndustryRiskSegment',
-        'nss_check' => 'getNssCheck'
+        'nss_check' => 'getNssCheck',
+        'working_history' => 'getWorkingHistory'
     ];
     
     public static function attributeMap()
@@ -93,13 +88,10 @@ class SuccessEVConsumption implements ModelInterface, ArrayAccess
     
     public function getModelName()
     {
-        return self::$apihubModelName;
+        return self::$RCCPMModelName;
     }
     const WORK_STATUS_W = 'W';
     const WORK_STATUS_NW = 'NW';
-    const INDUSTRY_RISK_SEGMENT_H = 'H';
-    const INDUSTRY_RISK_SEGMENT_M = 'M';
-    const INDUSTRY_RISK_SEGMENT_L = 'L';
     
     
     
@@ -108,16 +100,6 @@ class SuccessEVConsumption implements ModelInterface, ArrayAccess
         return [
             self::WORK_STATUS_W,
             self::WORK_STATUS_NW,
-        ];
-    }
-    
-    
-    public function getIndustryRiskSegmentAllowableValues()
-    {
-        return [
-            self::INDUSTRY_RISK_SEGMENT_H,
-            self::INDUSTRY_RISK_SEGMENT_M,
-            self::INDUSTRY_RISK_SEGMENT_L,
         ];
     }
     
@@ -131,9 +113,8 @@ class SuccessEVConsumption implements ModelInterface, ArrayAccess
         $this->container['birthday'] = isset($data['birthday']) ? $data['birthday'] : null;
         $this->container['work_status'] = isset($data['work_status']) ? $data['work_status'] : null;
         $this->container['valid_until'] = isset($data['valid_until']) ? $data['valid_until'] : null;
-        $this->container['industry'] = isset($data['industry']) ? $data['industry'] : null;
-        $this->container['industry_risk_segment'] = isset($data['industry_risk_segment']) ? $data['industry_risk_segment'] : null;
         $this->container['nss_check'] = isset($data['nss_check']) ? $data['nss_check'] : null;
+        $this->container['working_history'] = isset($data['working_history']) ? $data['working_history'] : null;
     }
     
     public function listInvalidProperties()
@@ -143,13 +124,6 @@ class SuccessEVConsumption implements ModelInterface, ArrayAccess
         if (!is_null($this->container['work_status']) && !in_array($this->container['work_status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
                 "invalid value for 'work_status', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
-        $allowedValues = $this->getIndustryRiskSegmentAllowableValues();
-        if (!is_null($this->container['industry_risk_segment']) && !in_array($this->container['industry_risk_segment'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'industry_risk_segment', must be one of '%s'",
                 implode("', '", $allowedValues)
             );
         }
@@ -225,37 +199,6 @@ class SuccessEVConsumption implements ModelInterface, ArrayAccess
         return $this;
     }
     
-    public function getIndustry()
-    {
-        return $this->container['industry'];
-    }
-    
-    public function setIndustry($industry)
-    {
-        $this->container['industry'] = $industry;
-        return $this;
-    }
-    
-    public function getIndustryRiskSegment()
-    {
-        return $this->container['industry_risk_segment'];
-    }
-    
-    public function setIndustryRiskSegment($industry_risk_segment)
-    {
-        $allowedValues = $this->getIndustryRiskSegmentAllowableValues();
-        if (!is_null($industry_risk_segment) && !in_array($industry_risk_segment, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'industry_risk_segment', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['industry_risk_segment'] = $industry_risk_segment;
-        return $this;
-    }
-    
     public function getNssCheck()
     {
         return $this->container['nss_check'];
@@ -267,16 +210,30 @@ class SuccessEVConsumption implements ModelInterface, ArrayAccess
         return $this;
     }
     
+    public function getWorkingHistory()
+    {
+        return $this->container['working_history'];
+    }
+    
+    public function setWorkingHistory($working_history)
+    {
+        $this->container['working_history'] = $working_history;
+        return $this;
+    }
+    
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -286,6 +243,7 @@ class SuccessEVConsumption implements ModelInterface, ArrayAccess
         }
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

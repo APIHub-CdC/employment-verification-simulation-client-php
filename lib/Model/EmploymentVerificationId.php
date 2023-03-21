@@ -1,36 +1,36 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Model;
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 
 use \ArrayAccess;
-use \EmploymentVerificationSimulationClientPhp\Client\ObjectSerializer;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
 class EmploymentVerificationId implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'EmploymentVerificationId';
+    protected static $RCCPMModelName = 'EmploymentVerificationId';
     
-    protected static $apihubTypes = [
+    protected static $RCCPMTypes = [
         'employment_verification_request_id' => 'string',
         'subscription_id' => 'string',
         'inquiry_id' => 'string'
     ];
     
-    protected static $apihubFormats = [
+    protected static $RCCPMFormats = [
         'employment_verification_request_id' => 'uuid',
         'subscription_id' => 'uuid',
         'inquiry_id' => 'uuid'
     ];
     
-    public static function apihubTypes()
+    public static function RCCPMTypes()
     {
-        return self::$apihubTypes;
+        return self::$RCCPMTypes;
     }
     
-    public static function apihubFormats()
+    public static function RCCPMFormats()
     {
-        return self::$apihubFormats;
+        return self::$RCCPMFormats;
     }
     
     protected static $attributeMap = [
@@ -68,7 +68,7 @@ class EmploymentVerificationId implements ModelInterface, ArrayAccess
     
     public function getModelName()
     {
-        return self::$apihubModelName;
+        return self::$RCCPMModelName;
     }
     
     
@@ -126,16 +126,19 @@ class EmploymentVerificationId implements ModelInterface, ArrayAccess
         return $this;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -145,6 +148,7 @@ class EmploymentVerificationId implements ModelInterface, ArrayAccess
         }
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

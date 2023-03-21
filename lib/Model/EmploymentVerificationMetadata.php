@@ -1,34 +1,34 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Model;
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 
 use \ArrayAccess;
-use \EmploymentVerificationSimulationClientPhp\Client\ObjectSerializer;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
 class EmploymentVerificationMetadata implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'EmploymentVerificationMetadata';
+    protected static $RCCPMModelName = 'EmploymentVerificationMetadata';
     
-    protected static $apihubTypes = [
-        '_metadata' => '\EmploymentVerificationSimulationClientPhp\Client\Model\Metadata',
-        'inquiries' => '\EmploymentVerificationSimulationClientPhp\Client\Model\EmploymentVerification[]'
+    protected static $RCCPMTypes = [
+        '_metadata' => 'CirculoDeCredito\EmploymentVerification\Client\Model\Metadata',
+        'inquiries' => 'CirculoDeCredito\EmploymentVerification\Client\Model\EmploymentVerifications'
     ];
     
-    protected static $apihubFormats = [
+    protected static $RCCPMFormats = [
         '_metadata' => null,
         'inquiries' => null
     ];
     
-    public static function apihubTypes()
+    public static function RCCPMTypes()
     {
-        return self::$apihubTypes;
+        return self::$RCCPMTypes;
     }
     
-    public static function apihubFormats()
+    public static function RCCPMFormats()
     {
-        return self::$apihubFormats;
+        return self::$RCCPMFormats;
     }
     
     protected static $attributeMap = [
@@ -63,7 +63,7 @@ class EmploymentVerificationMetadata implements ModelInterface, ArrayAccess
     
     public function getModelName()
     {
-        return self::$apihubModelName;
+        return self::$RCCPMModelName;
     }
     
     
@@ -109,16 +109,19 @@ class EmploymentVerificationMetadata implements ModelInterface, ArrayAccess
         return $this;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -128,6 +131,7 @@ class EmploymentVerificationMetadata implements ModelInterface, ArrayAccess
         }
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

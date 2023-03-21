@@ -1,15 +1,15 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Model;
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 
 interface ModelInterface
 {
     
     public function getModelName();
     
-    public static function apihubTypes();
+    public static function RCCPMTypes();
     
-    public static function apihubFormats();
+    public static function RCCPMFormats();
     
     public static function attributeMap();
     

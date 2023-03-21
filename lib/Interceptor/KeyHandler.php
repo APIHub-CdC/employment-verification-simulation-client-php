@@ -1,12 +1,12 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Interceptor;
+namespace EmploymentVerificationClientPhp\Client\Interceptor;
 
 use \Monolog\Logger;
 use \Monolog\Formatter\LineFormatter;
 use \Monolog\Handler\StreamHandler;
 
-use \EmploymentVerificationSimulationClientPhp\Client\Interceptor\MyLogger;
+use \EmploymentVerificationClientPhp\Client\Interceptor\MyLogger;
 
 Class KeyHandler{
     private $private_key = null;

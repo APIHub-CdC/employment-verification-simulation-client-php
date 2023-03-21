@@ -1,38 +1,38 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Model;
+namespace CirculoDeCredito\EmploymentVerification\Client\Model;
 
 use \ArrayAccess;
-use \EmploymentVerificationSimulationClientPhp\Client\ObjectSerializer;
+use CirculoDeCredito\EmploymentVerification\Client\ObjectSerializer;
 
-class AckEmploymentVerification implements ModelInterface, ArrayAccess
+class EVAResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
     
-    protected static $apihubModelName = 'AckEmploymentVerification';
+    protected static $RCCPMModelName = 'EVAResponse';
     
-    protected static $apihubTypes = [
+    protected static $RCCPMTypes = [
         'acknowledge_id' => 'string',
         'date_time' => '\DateTime',
         'operation' => 'string',
         'message' => 'string'
     ];
     
-    protected static $apihubFormats = [
+    protected static $RCCPMFormats = [
         'acknowledge_id' => 'uuid',
         'date_time' => 'date-time',
         'operation' => null,
         'message' => null
     ];
     
-    public static function apihubTypes()
+    public static function RCCPMTypes()
     {
-        return self::$apihubTypes;
+        return self::$RCCPMTypes;
     }
     
-    public static function apihubFormats()
+    public static function RCCPMFormats()
     {
-        return self::$apihubFormats;
+        return self::$RCCPMFormats;
     }
     
     protected static $attributeMap = [
@@ -73,10 +73,10 @@ class AckEmploymentVerification implements ModelInterface, ArrayAccess
     
     public function getModelName()
     {
-        return self::$apihubModelName;
+        return self::$RCCPMModelName;
     }
     const OPERATION_REQUEST = 'request';
-    const OPERATION_CONSUMPTION = 'consume';
+    const OPERATION_CONSUMPTION = 'consumption';
     
     
     
@@ -170,22 +170,25 @@ class AckEmploymentVerification implements ModelInterface, ArrayAccess
     public function setMessage($message)
     {
         if (!is_null($message) && (mb_strlen($message) > 120)) {
-            throw new \InvalidArgumentException('invalid length for $message when calling AckEmploymentVerification., must be smaller than or equal to 120.');
+            throw new \InvalidArgumentException('invalid length for $message when calling EVAResponse., must be smaller than or equal to 120.');
         }
         $this->container['message'] = $message;
         return $this;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
@@ -195,6 +198,7 @@ class AckEmploymentVerification implements ModelInterface, ArrayAccess
         }
     }
     
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

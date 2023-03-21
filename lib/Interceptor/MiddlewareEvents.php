@@ -1,21 +1,21 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client\Interceptor;
+namespace EmploymentVerificationClientPhp\Client\Interceptor;
 
 use \GuzzleHttp\Middleware;
 use \GuzzleHttp\Psr7\Stream;
 use \Psr\Http\Message\RequestInterface as streamRequest;
 use \Psr\Http\Message\ResponseInterface as streamResponse;
 
-use \EmploymentVerificationSimulationClientPhp\Client\Interceptor\KeyHandler;
-use \EmploymentVerificationSimulationClientPhp\Client\Interceptor\MyLogger;
-use \EmploymentVerificationSimulationClientPhp\Client\Model\Errors;
-use \EmploymentVerificationSimulationClientPhp\Client\Model\Error;
+use \EmploymentVerificationClientPhp\Client\Interceptor\KeyHandler;
+use \EmploymentVerificationClientPhp\Client\Interceptor\MyLogger;
+use CirculoDeCredito\EmploymentVerification\Client\Model\Errors;
+use CirculoDeCredito\EmploymentVerification\Client\Model\Error;
 
 class MiddlewareEvents
 {
     
-    function __construct(\EmploymentVerificationSimulationClientPhp\Client\Interceptor\KeyHandler $signer)
+    function __construct(\EmploymentVerificationClientPhp\Client\Interceptor\KeyHandler $signer)
     {
         $this->signer = $signer;
         $this->logger = new MyLogger('MiddlewareEvents');
@@ -95,11 +95,11 @@ class MiddlewareEvents
 }
 
 function build_error($code, $message){
-    $error = new \EmploymentVerificationSimulationClientPhp\Client\Model\Error([
+    $error = new CirculoDeCredito\EmploymentVerification\Client\Model\Error([
         "code" => $code,
         "message" => $message
     ]);
-    $errors = new \EmploymentVerificationSimulationClientPhp\Client\Model\Errores(["errors" => [$error]]);
+    $errors = new CirculoDeCredito\EmploymentVerification\Client\Model\Errores(["errors" => [$error]]);
     $resource = fopen('data://text/plain,' . $errors,'r');
     $new_reponse = new \GuzzleHttp\Psr7\Stream($resource);
     

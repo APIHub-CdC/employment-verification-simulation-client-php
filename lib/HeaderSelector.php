@@ -1,6 +1,6 @@
 <?php
 
-namespace EmploymentVerificationSimulationClientPhp\Client;
+namespace CirculoDeCredito\EmploymentVerification\Client;
 
 use \Exception;
 
